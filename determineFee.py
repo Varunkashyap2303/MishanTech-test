@@ -29,29 +29,38 @@ def selectCourse():
 
 def selectLevel():
     print('Select level:\n')
-    print('1. UG\n2. PG\n3.DIPLOMA\n4.Ph.D\n')
+    print('1. UG\n2. PG\n3.DIPLOMA\n')
     level = int(input())
     return level
 
-def determineFee(fee_type, nationality, course, level):
+def determineFee(fee_type, nationality, course, level, data):
+    if course not in [1, 2, 3]:
+        print('Invalid Course')
+        exit()
     if fee_type == 1:
         match nationality:
             case 1: resultant_fee = data['Exam Fee']['INDIAN']['ALL_COURSES']['ALL_LEVEL']['amount']
             case 2: resultant_fee = data['Exam Fee']['FOREIGN']['ALL_COURSES']['ALL_LEVEL']['amount']
             case 3: resultant_fee = data['Exam Fee']['NRI']['ALL_COURSE']['ALL_LEVEL']['amount']
             case 4: resultant_fee = data['Exam Fee']['SAARC']['ALL_COURSES']['ALL_LEVEL']['amount']
-    else:
+            case _: print('Invalid nationality'); exit()
+    elif fee_type == 2:
         match nationality:
             case 1: 
                 match level:
                     case 1: resultant_fee = data['Application Fee']['INDIAN']['ALL_COURSES']['UG']['amount']
                     case 2: resultant_fee = data['Application Fee']['INDIAN']['ALL_COURSES']['PG']['amount']
                     case 3: resultant_fee = data['Application Fee']['INDIAN']['ALL_COURSES']['UG-DIPLOMA']['amount']
+                    case _: print('Invalid level'); exit()
             case 2: 
                 match level:
                     case 1: resultant_fee = data['Application Fee']['FOREIGN']['ALL_COURSES']['UG']['amount']
                     case 2: resultant_fee = data['Application Fee']['FOREIGN']['ALL_COURSES']['PG']['amount']
                     case 3: resultant_fee = data['Application Fee']['FOREIGN']['ALL_COURSES']['UG-DIPLOMA']['amount']
+                    case _: print('Invalid level'); exit()
+    else:
+        print('Invalid fee type')
+        exit()
     return resultant_fee
 
 
@@ -63,6 +72,6 @@ if __name__ == '__main__':
     nationality = selectNationality(fee_type, data)
     course = selectCourse()
     level = selectLevel()
-    fee = determineFee(fee_type, nationality, course, level)
-    print(fee)
+    fee = determineFee(fee_type, nationality, course, level, data)
+    print('Fee to be paid: {}'.format(fee))
 
