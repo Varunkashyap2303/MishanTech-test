@@ -34,8 +34,8 @@ def selectLevel():
     return level
 
 def determineFee(fee_type, nationality, course, level, data):
-    if course not in [1, 2, 3]:
-        print('Invalid Course')
+    if course not in [1, 2, 3] or level not in [1, 2, 3]:
+        print('Invalid Course / Invalid Level')
         exit()
     if fee_type == 1:
         match nationality:
@@ -58,6 +58,7 @@ def determineFee(fee_type, nationality, course, level, data):
                     case 2: resultant_fee = data['Application Fee']['FOREIGN']['ALL_COURSES']['PG']['amount']
                     case 3: resultant_fee = data['Application Fee']['FOREIGN']['ALL_COURSES']['UG-DIPLOMA']['amount']
                     case _: print('Invalid level'); exit()
+            case _: print('Invalid nationality'); exit()
     else:
         print('Invalid fee type')
         exit()
@@ -74,4 +75,3 @@ if __name__ == '__main__':
     level = selectLevel()
     fee = determineFee(fee_type, nationality, course, level, data)
     print('Fee to be paid: {}'.format(fee))
-
