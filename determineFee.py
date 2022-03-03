@@ -41,7 +41,7 @@ def determineFee(fee_type, nationality, course, level, data):
         match nationality:
             case 1: resultant_fee = data['Exam Fee']['INDIAN']['ALL_COURSES']['ALL_LEVEL']['amount']
             case 2: resultant_fee = data['Exam Fee']['FOREIGN']['ALL_COURSES']['ALL_LEVEL']['amount']
-            case 3: resultant_fee = data['Exam Fee']['NRI']['ALL_COURSE']['ALL_LEVEL']['amount']
+            case 3: resultant_fee = data['Exam Fee']['NRI']['ALL_COURSES']['ALL_LEVEL']['amount']
             case 4: resultant_fee = data['Exam Fee']['SAARC']['ALL_COURSES']['ALL_LEVEL']['amount']
             case _: print('Invalid nationality'); exit()
     elif fee_type == 2:
